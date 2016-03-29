@@ -1,0 +1,31 @@
+
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://114.215.153.154:3306/sharecenter?useUnicode=true&amp;characterEncoding=UTF-8</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">19940125</property>
+		
+		<!-- 设置方言，使得生成SQL语句时符合MySQL标准 -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<!-- show query string-->
+		<property name="show_sql">true</property>
+		<!-- 格式化显示SQL语句 -->
+		<property name="format_sql">true</property>
+
+		<!-- default create table in database if not exist -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<mapping resource="net/jimmyme/model/User.hbm.xml" />
+		<mapping resource="net/jimmyme/model/Article.hbm.xml" />
+		<mapping resource="net/jimmyme/model/Comment.hbm.xml" />
+		<mapping resource="net/jimmyme/model/Tag.hbm.xml" />
+		<mapping resource="net/jimmyme/model/ArticleTag.hbm.xml" />
+		<mapping resource="net/jimmyme/model/File.hbm.xml" />
+		
+	</session-factory>
+</hibernate-configuration>

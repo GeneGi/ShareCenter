@@ -1,0 +1,37 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.jimmyme.model">
+    <class name="User" table="t_user">
+        <id name="userId" column="userId">
+            <!-- ID 生成策略 -->
+            <generator class="native" />
+        </id>
+        <property name="userName" />
+        <property name="userType" />
+        <property name="password" />
+        <property name="mail" />
+        <property name="profile" />
+        <property name="photoUrl" />
+
+        <set name="articles" inverse="true" lazy="false">
+            <!--在Article表中加入userId列 其中one-to-many 中的类必须指定-->
+            <!--column的userId要与Article中的一致，foreign-key也要一致或只配置一方-->
+            <key column="userId" foreign-key="fk_article_user_id" />
+            <one-to-many class="Article"/>
+        </set>
+        <set name="comments" inverse="true" lazy="false">
+            <key column="userId" foreign-key="fk_comment_user_id" />
+            <one-to-many class="Comment"/>
+        </set>
+        <set name="files" inverse="true" lazy="false">
+            <key column="userId" foreign-key="fk_file_user_id" />
+            <one-to-many class="File"/>
+        </set>
+    </class>
+    <!--
+    不写column默认与name一致
+    类中 不想关联到数据表的字段  在这里不写就可以了
+    -->
+</hibernate-mapping>

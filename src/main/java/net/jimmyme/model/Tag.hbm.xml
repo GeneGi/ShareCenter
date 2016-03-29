@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.jimmyme.model">
+    <class name="Tag" table="t_tag">
+        <id name="tagId" column="tagId">
+            <!-- ID 生成策略 -->
+            <generator class="native" />
+        </id>
+
+        <property name="tagName" />
+        
+        <set name="articleTags" inverse="true" lazy="false">
+            <!--在Article表中加入userId列 其中one-to-many 中的类必须指定-->
+            <!--column的userId要与Article中的一致，foreign-key也要一致或只配置一方-->
+            <key column="tagId" foreign-key="fk_tag_articleTag_id" />
+            <one-to-many class="ArticleTag"/>
+        </set>
+
+    </class>
+    <!--
+    不写column默认与name一致
+    类中 不想关联到数据表的字段  在这里不写就可以了
+    -->
+</hibernate-mapping>

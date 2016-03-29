@@ -1,0 +1,32 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.jimmyme.model">
+    <class name="Article" table="t_article">
+        <id name="articleId" column="articleId">
+            <!-- ID 生成策略 -->
+            <generator class="native" />
+        </id>
+
+        <property name="title" />
+        <property name="text" />
+        <property name="tags" />
+        <property name="postDate" />
+        <property name="modifyDate" />
+
+        <many-to-one name="author" column="userId" lazy="false" class="User" cascade="all" foreign-key="fk_article_user_id"/>
+        <set name="comments" inverse="true" lazy="false">
+        	<key column="articleId" foreign-key="fk_comm_article_id" />
+        	<one-to-many class="Comment"/>
+        </set>
+        <set name="articleTags" inverse="true" lazy="false">
+        	<key column="articleId" foreign-key="fk_articleTag_article_id" />
+        	<one-to-many class="ArticleTag"/>
+        </set>
+    </class>
+    <!--
+    不写column默认与name一致
+    类中 不想关联到数据表的字段  在这里不写就可以了
+    -->
+</hibernate-mapping>

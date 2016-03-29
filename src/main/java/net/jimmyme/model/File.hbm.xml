@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.jimmyme.model">
+    <class name="File" table="t_file">
+        <id name="fileId" column="fileId">
+            <!-- ID 生成策略 -->
+            <generator class="native" />
+        </id>
+
+        <property name="fileName" />
+        <property name="fileUrl" />
+        <many-to-one name="fileOwner" column="userId" lazy="false" class="User" cascade="all" foreign-key="fk_file_userId"/>
+
+    </class>
+    <!--
+    不写column默认与name一致
+    类中 不想关联到数据表的字段  在这里不写就可以了
+    -->
+</hibernate-mapping>

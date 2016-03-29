@@ -90,38 +90,6 @@ public class MainController {
     	
     	return "login";
     }
-
-    @SuppressWarnings("unchecked")
-    @RequestMapping(value="/jsonTest")
-    public @ResponseBody List<Object> getTest(){
-
-        HibernateUtil util = new HibernateUtil();
-        Session session = null;
-        Transaction transaction = null;
-        List<Object> list = null;
-        try {
-            session = util.openSession();
-            transaction = session.beginTransaction();
-
-            StringBuffer stringBuffer = new StringBuffer("select c.courseName,sc.grade "
-                    + "from Course as c,SelectCourse as sc "
-                    + "where c.courseId=sc.course.courseId");
-
-            Query query = session.createQuery(stringBuffer.toString());
-            list = (List<Object>)query.list();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            util.closeSession(session);
-        }
-
-
-        return list;
-    }
     
     @RequestMapping(value="/uploadPhoto",method=RequestMethod.GET)
     public String uploadPhoto(HttpServletRequest request) {  
